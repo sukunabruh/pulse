@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "pulse",
+  "version": "${version}",
+  "name": "Pulse",
+  "description": "Client-side utility mod: module system, click GUI, HUD and standard modules.",
+  "authors": ["you"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.example.pulse.PulseClient"]
+  },
+  "depends": {
+    "fabricloader": ">=0.18.1",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

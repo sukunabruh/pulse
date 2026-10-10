@@ -1,0 +1,20 @@
+{
+  "key.category.pulse.modules": "Pulse",
+  "key.pulse.gui": "Open Click GUI",
+  "key.pulse.hud_editor": "Open HUD Editor",
+  "key.pulse.zoom": "Zoom (hold)",
+  "key.pulse.toggle.sprint": "Toggle Sprint",
+  "key.pulse.toggle.fullbright": "Toggle Fullbright",
+  "key.pulse.toggle.zoom": "Toggle Zoom",
+  "key.pulse.toggle.autowalk": "Toggle Auto Walk",
+  "key.pulse.toggle.autotool": "Toggle Auto Tool",
+  "key.pulse.toggle.hud": "Toggle HUD",
+  "key.pulse.toggle.freecam": "Toggle Freecam",
+  "key.pulse.toggle.blockesp": "Toggle Block ESP",
+  "key.pulse.toggle.fakestats": "Toggle Fake Stats",
+  "key.pulse.toggle.entityesp": "Toggle Entity ESP",
+  "key.pulse.toggle.spawnerfinder": "Toggle Spawner Finder",
+  "key.pulse.toggle.suschunkfinder": "Toggle Sus Chunk Finder",
+  "key.pulse.toggle.basefinder": "Toggle Base Finder",
+  "key.pulse.toggle.waypoints": "Toggle Waypoints"
+}
