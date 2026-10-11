@@ -44,6 +44,18 @@ public final class EspRender {
     }
 
     public Vec3d eye() { return eye; }
+
+    /** Camera-space coordinates {right, up, forward} of a world point (forward &gt; 0 is in front). */
+    public double[] toCamera(double x, double y, double z) {
+        double dx = x - eye.x, dy = y - eye.y, dz = z - eye.z;
+        return new double[]{
+                dx * r.x + dy * r.y + dz * r.z,
+                dx * u.x + dy * u.y + dz * u.z,
+                dx * f.x + dy * f.y + dz * f.z};
+    }
+
+    public double scaleX() { return sx; }
+    public double scaleY() { return sy; }
     public int width() { return w; }
     public int height() { return h; }
 

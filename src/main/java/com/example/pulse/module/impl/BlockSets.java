@@ -26,6 +26,13 @@ public final class BlockSets {
         return out;
     }
 
+    /** e.g. woodsWith("planks") -> oak_planks, spruce_planks, ... (ids that don't exist are ignored by callers) */
+    public static String[] woodsWith(String suffix) {
+        String[] out = new String[WOODS.length];
+        for (int i = 0; i < WOODS.length; i++) out[i] = WOODS[i] + "_" + suffix;
+        return out;
+    }
+
     public static String[] signs() {
         String[] out = new String[WOODS.length * 4];
         int i = 0;

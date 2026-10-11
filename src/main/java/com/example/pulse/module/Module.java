@@ -67,6 +67,7 @@ public abstract class Module {
     // Hooks. mc.player / mc.world may be null in onEnable/onDisable (e.g. when loading config).
     public void onEnable() {}
     public void onDisable() {}
+    public void onPreTick() {}
     public void onTick() {}
     public void onHud(DrawContext context, float tickProgress) {}
 }

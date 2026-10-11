@@ -1,13 +1,16 @@
 package com.example.pulse;
 
+import com.example.pulse.command.BaseCommands;
 import com.example.pulse.command.WaypointCommands;
 import com.example.pulse.config.ConfigManager;
 import com.example.pulse.event.EventBus;
 import com.example.pulse.event.HudEvent;
+import com.example.pulse.event.PreTickEvent;
 import com.example.pulse.event.TickEvent;
 import com.example.pulse.gui.ClickGuiScreen;
 import com.example.pulse.gui.HudEditorScreen;
 import com.example.pulse.module.ModuleManager;
+import com.example.pulse.module.impl.BaseFinderModule;
 import com.example.pulse.module.impl.WaypointsModule;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -39,6 +42,12 @@ public class PulseClient implements ClientModInitializer {
         KeyBinding hudKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.pulse.hud_editor", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_CONTROL, CATEGORY));
 
+        ClientTickEvents.START_CLIENT_TICK.register(client -> {
+            if (client.player != null && client.world != null) {
+                EVENTS.post(PreTickEvent.INSTANCE);
+            }
+        });
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (guiKey.wasPressed()) {
                 if (client.currentScreen == null) client.setScreen(new ClickGuiScreen(modules, config));
@@ -57,8 +66,11 @@ public class PulseClient implements ClientModInitializer {
                 (context, tickCounter) -> EVENTS.post(new HudEvent(context, tickCounter)));
 
         WaypointsModule waypoints = modules.get(WaypointsModule.class);
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) ->
-                WaypointCommands.register(dispatcher, waypoints));
+        BaseFinderModule baseFinder = modules.get(BaseFinderModule.class);
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> {
+            WaypointCommands.register(dispatcher, waypoints);
+            BaseCommands.register(dispatcher, baseFinder);
+        });
 
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
             config.save(modules);

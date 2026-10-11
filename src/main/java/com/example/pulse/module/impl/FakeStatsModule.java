@@ -4,6 +4,7 @@ import com.example.pulse.module.Category;
 import com.example.pulse.module.Module;
 import com.example.pulse.setting.BoolSetting;
 import com.example.pulse.setting.NumberSetting;
+import com.example.pulse.setting.StringSetting;
 import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
@@ -23,7 +24,9 @@ public class FakeStatsModule extends Module {
     private final BoolSetting showKd = add(new BoolSetting("Show K/D", true));
     private final NumberSetting kills = add(new NumberSetting("Kills", 25, 0, 999, 1));
     private final NumberSetting deaths = add(new NumberSetting("Deaths", 5, 0, 999, 1));
-    private final BoolSetting rightSide = add(new BoolSetting("Right side", true));
+    private final NumberSetting posX = add(new NumberSetting("X position %", 100, 0, 100, 1));
+    private final NumberSetting posY = add(new NumberSetting("Y position %", 5, 0, 100, 1));
+    private final StringSetting customLine = add(new StringSetting("Custom line", ""));
 
     public FakeStatsModule() {
         super("Fake Stats", "Custom stats panel with values you choose (local display only).", Category.RENDER);
@@ -44,13 +47,19 @@ public class FakeStatsModule extends Module {
             lines.add(String.format("K/D: %.2f", kd));
         }
 
-        int y = 4;
-        int screenW = mc.getWindow().getScaledWidth();
+        if (!customLine.get().isBlank()) lines.add(customLine.get());
+        if (lines.isEmpty()) return;
+
+        int blockW = 0;
+        for (String line : lines) blockW = Math.max(blockW, mc.textRenderer.getWidth(line));
+        int blockH = lines.size() * 10;
+        int screenW = mc.getWindow().getScaledWidth(), screenH = mc.getWindow().getScaledHeight();
+        int x = 4 + (int) ((screenW - blockW - 8) * posX.get() / 100.0);
+        int y = 4 + (int) ((screenH - blockH - 8) * posY.get() / 100.0);
+        boolean rightAligned = posX.get() >= 50;
         for (String line : lines) {
-            int x = rightSide.get() ? screenW - 4 - mc.textRenderer.getWidth(line) : 4;
-            // when on the left, sit below the real HUD lines
-            int yy = rightSide.get() ? y : y + 50;
-            ctx.drawTextWithShadow(mc.textRenderer, line, x, yy, 0xFFFFFFFF);
+            int lx = rightAligned ? x + blockW - mc.textRenderer.getWidth(line) : x;
+            ctx.drawTextWithShadow(mc.textRenderer, line, lx, y, 0xFFFFFFFF);
             y += 10;
         }
     }

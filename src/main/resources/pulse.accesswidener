@@ -1,0 +1,7 @@
+accessWidener v2 named
+
+# FastPlace: reset the use delay
+accessible field net/minecraft/client/MinecraftClient itemUseCooldown I
+
+# HoverTotem: the slot the mouse is over in an inventory screen
+accessible field net/minecraft/client/gui/screen/ingame/HandledScreen focusedSlot Lnet/minecraft/screen/slot/Slot;

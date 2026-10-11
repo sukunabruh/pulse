@@ -3,10 +3,11 @@
   "id": "pulse",
   "version": "${version}",
   "name": "Pulse",
-  "description": "Client-side utility mod: module system, click GUI, HUD and standard modules.",
+  "description": "Pulse - client-side utility mod: click GUI, HUD, ESP, base finding, totem/eat/place helpers.",
   "authors": ["you"],
   "license": "MIT",
   "environment": "client",
+  "accessWidener": "pulse.accesswidener",
   "entrypoints": {
     "client": ["com.example.pulse.PulseClient"]
   },
